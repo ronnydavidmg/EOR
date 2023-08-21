@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import lasio
 import matplotlib.pyplot as plt
+from PIL import Image
 
 def main():
     st.set_page_config(
