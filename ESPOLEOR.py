@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import lasio
 import numpy as np
-import streamlit as st
+
+
 
 def bold(text): return "\033[1m" + text + "\033[0m"
 print(bold("\nBienvenido al software de screening de técnicas de EOR de la ESPOL. A continuación, selecciona la opción de ingreso de datos que dispone:"))
 print("\n1. Carga de archivo LAS (Log ASCII Standard).\n2. Ingreso manual de datos promedio de pozos.")
 while True:
     opc = input("\n\033[1mDigite 1 o 2 según corresponda:")
-
     if not opc:  # si se presiona enter sin ingresar nada
         print("\nDebe ingresar una opción. Intente de nuevo.")
         break
