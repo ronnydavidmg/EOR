@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import lasio
+import plotly.express as px
 import matplotlib.pyplot as plt
 from PIL import Image
 
@@ -31,6 +32,9 @@ def main():
             padding: 10px 0;
             margin: 5px 0;
         }
+        .stimage {
+            text-align: center;
+        }
         .stMarkdown {
             color: white blue;
             text-align: center;
@@ -38,10 +42,14 @@ def main():
         .logo {
         width: 70px;
         height: 70px;
-        margin-left: auto; /* Centra horizontalmente a la derecha */
-        margin-right: auto; /* Centra horizontalmente a la izquierda */
         display: block;
         }   
+        .mm {
+            width: 10px; /* Ajusta el ancho del logo según tu preferencia */
+            height: auto;
+            align-items: center;
+
+        }
         .header {
             display: flex;
             align-items: center;
@@ -51,6 +59,8 @@ def main():
         .header h1 {
             margin: 0;
             margin-left: 100px; /* Agrega un margen izquierdo al título */
+            justify-content: center;
+
         }
         .footer {
             display: flex;
@@ -62,10 +72,7 @@ def main():
             text-align: left;
             margin: 100px;
         }
-        .author img {
-            display: block;
-            margin: 0 auto 10px; /* Centra la imagen horizontalmente con un margen inferior */
-        }
+     }
         .author-name {
             margin-top: 10px;
         }
@@ -80,6 +87,12 @@ def main():
     )
 
     # Encabezado
+
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+    with col2:
+        st.image("logo.png", width=100)
+
+
     st.markdown(
         '<div class="header"><h1>ESPOL EOR SCREENING</h1><h2>Bienvenido al software de screening de técnicas de EOR de la ESPOL.</h2>',
         unsafe_allow_html=True)
@@ -1566,15 +1579,17 @@ def main():
             ejex = list(diccionario_noordenado.keys())
             ejey = list(diccionario_noordenado.values())
 
-            fig, ax = plt.subplots()
-            ax.barh(ejex, ejey)
-            ax.set_title('Idoneidad de técnicas de EOR')
-            ax.set_xlabel('Valor de probabilidad de éxito')
-            ax.set_ylabel('Método')
+            df = pd.DataFrame({"Método": ejex, "Valor de probabilidad de éxito": ejey})
+
+            fig = px.bar(df, x="Valor de probabilidad de éxito", y="Método", orientation="h",
+                         title="Idoneidad de técnicas de EOR",
+                         labels={"Valor de probabilidad de éxito": "Valor de probabilidad de éxito",
+                                 "Método": "Método"})
+
             st.write("")
             st.write("")
             st.write("")
-            st.pyplot(fig)
+            st.plotly_chart(fig)
 
     st.write("")
     st.write("")
@@ -1583,15 +1598,15 @@ def main():
     # Panel para ingreso manual de datos
     with st.sidebar.expander("Resultados"):
 
-        por = st.sidebar.number_input("Porosidad en porcentaje:", value=0, min_value=0, max_value=100)
-        per= st.sidebar.number_input("Permeabilidad en mD:", value=0, min_value=0)
-        api = st.sidebar.number_input("Gravedad API:", value=0, min_value=0)
-        sat = st.sidebar.number_input("Saturación en porcentaje:", value=0, min_value=0, max_value=100)
-        tem = st.sidebar.number_input("Temperatura en °C:", value=0, min_value=0)
-        prof = st.sidebar.number_input("Profundidad en metros:", value=0, min_value=0)
-        esp = st.sidebar.number_input("Espesor en metros:", value=0, min_value=0)
-        vis = st.sidebar.number_input("Viscosidad en cp:", value=0, min_value=0)
-        roca = st.sidebar.selectbox("Tipo de roca:", ["","No se cuenta con información", "ARENISCA", "LUTITA", "DOLOMITA", "CALIZA", "CARBONATA"])
+        por = st.sidebar.number_input("Valor de Porosidad en porcentaje:", value=0, min_value=0, max_value=100)
+        per= st.sidebar.number_input("Valor de Permeabilidad en mD:", value=0, min_value=0)
+        api = st.sidebar.number_input("Valor de Gravedad API:", value=0, min_value=0)
+        sat = st.sidebar.number_input("Valor de Saturación en porcentaje:", value=0, min_value=0, max_value=100)
+        tem = st.sidebar.number_input("Valor de Temperatura en °C:", value=0, min_value=0)
+        prof = st.sidebar.number_input("Valor de Profundidad en metros:", value=0, min_value=0)
+        esp = st.sidebar.number_input("Valor de Espesor en metros:", value=0, min_value=0)
+        vis = st.sidebar.number_input("Valor de Viscosidad en cp:", value=0, min_value=0)
+        roca = st.sidebar.selectbox("Selecciona el tipo de roca:", ["","No se cuenta con información", "ARENISCA", "LUTITA", "DOLOMITA", "CALIZA", "CARBONATA"])
         if st.sidebar.button("Guardar valores", key="boton_guardar"):
             st.sidebar.success("Guardado exitosamente")
 
@@ -2942,30 +2957,37 @@ def main():
         ejex = list(diccionario_noordenado.keys())
         ejey = list(diccionario_noordenado.values())
 
-        fig, ax = plt.subplots()
-        ax.barh(ejex, ejey)
-        ax.set_title('Idoneidad de técnicas de EOR')
-        ax.set_xlabel('Valor de probabilidad de éxito')
-        ax.set_ylabel('Método')
-        st.write("")
-        st.write("")
-        st.write("")
-        st.pyplot(fig)
+        df = pd.DataFrame({"Método": ejex, "Valor de probabilidad de éxito": ejey})
 
-        # Autores
+        fig = px.bar(df, x="Valor de probabilidad de éxito", y="Método", orientation="h",
+                     title="Idoneidad de técnicas de EOR",
+                     labels={"Valor de probabilidad de éxito": "Valor de probabilidad de éxito", "Método": "Método"})
+
         st.write("")
         st.write("")
         st.write("")
-        st.write("")
-        st.write("")
+        st.plotly_chart(fig)
+
+    # Autores
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
 
     authors_col1, authors_col2 = st.columns(2)
     with authors_col1:
             #st.image("autor1.png", width=75)
-        st.markdown("**Ronny David Morales García - rondamor@espol.edu.ec**")
+        st.markdown("**Ronny David Morales García - rondamor@espol.edu.ec - linkedin.com/in/david-morales-garcia**")
     with authors_col2:
            #st.image("autor2.png", width=75)
-       st.markdown("**Leopoldo Guillermo Medina Cáceres - lgmedina@espol.edu.ec**")
+       st.markdown("**Leopoldo Guillermo Medina Cáceres - lgmedina@espol.edu.ec - linkedin.com/in/leopoldomedina/**")
+
+
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+    with col4:
+        st.image("mm.png", width=100)
+
 
 if __name__ == "__main__":
     main()
