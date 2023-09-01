@@ -1,5 +1,5 @@
-lasio = 0.31
-pandas = 2.0.3
-plotly = 5.9.0
-numpy = 1.25.2
-streamlit = 1.25.0
+lasio == 0.31
+pandas == 2.0.3
+plotly == 5.9.0
+numpy == 1.25.2
+streamlit == 1.25.0
