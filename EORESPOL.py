@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import lasio
 import plotly.express as px
-from PIL import Image
 
 def main():
     st.set_page_config(
