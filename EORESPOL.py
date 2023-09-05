@@ -11,8 +11,6 @@ def main():
         layout="wide",
         initial_sidebar_state="collapsed",
     )
-
-    # Estilos personalizados
     st.markdown(
         """
         <style>
@@ -83,9 +81,7 @@ def main():
         """,
         unsafe_allow_html=True,
     )
-
-    # Encabezado
-
+    
     col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
     with col2:
         st.image("logo.png", width=100)
@@ -97,8 +93,6 @@ def main():
 
     col1, col2, col3 = st.columns([1, 2, 1])
     col2:  st.image("logo.png", width=70)
-
-    #st.write("A continuación, selecciona la opción de ingreso de datos que dispones:")
 
     # Botones
     st.write("")
@@ -148,10 +142,6 @@ def main():
             well = las.df()
 
             df_filtrado = well.loc[well['PAYFLAG'] == 1]
-            # print("\n",df_filtrado)
-
-            # Se imprime valores estadisticos
-            # print(df_filtrado.describe())
 
             df_filtrado.reset_index(drop=False, inplace=True)
 
@@ -186,9 +176,6 @@ def main():
             intervalo_largo = df_filtrado[
                 (df_filtrado['DEPTH'] >= df_filtrado.iloc[max_width_start]['DEPTH']) &
                 (df_filtrado['DEPTH'] <= intervalo_largo_final)]
-
-            # Imprimimos el intervalo más largo consecutivo.
-            # print(intervalo_largo)
 
             # ESPESOR
             esp = intervalo_largo['DEPTH'].max() - intervalo_largo['DEPTH'].min()
@@ -2975,10 +2962,8 @@ def main():
 
     authors_col1, authors_col2 = st.columns(2)
     with authors_col1:
-            #st.image("autor1.png", width=75)
         st.markdown("**Ronny David Morales García - rondamor@espol.edu.ec - linkedin.com/in/david-morales-garcia**")
     with authors_col2:
-           #st.image("autor2.png", width=75)
        st.markdown("**Leopoldo Guillermo Medina Cáceres - lgmedina@espol.edu.ec - linkedin.com/in/leopoldomedina/**")
 
 
